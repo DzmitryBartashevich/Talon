@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="talondatabase@localhost" uuid="016b365e-2c73-46fc-b231-ee65ee4b7a58">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>talondatabase</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/talondatabase</jdbc-url>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="CONVERT_TO_NULL" />
+      </driver-properties>
+    </data-source>
+  </component>
+</project>

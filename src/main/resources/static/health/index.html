@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin</title>
+    <link rel="shortcut icon" href="https://portal.amurzdrav.ru/wp-content/uploads/2019/09/document.svg">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <meta charset="utf-8">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+        integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+
+</head>
+
+<body ng-app="Tiket" onload="hide()"><br>
+    <table width="100%">
+            <tr>
+            <td> &nbsp &nbsp &nbsp 
+                <input value="Главная" type="submit" onclick="return location.href = '../main/main.html'"> 
+            </td>
+            <td align="right"> 
+                <input value="Выйти" type="submit" onclick="return location.href = '../user/tiket_user.html'">&nbsp &nbsp &nbsp
+            </td>
+            </tr>
+        </table>
+
+
+
+    <div align="right"> <br>
+        &nbsp &nbsp &nbsp
+    </div>
+
+    <div class="container" ng-controller="HealthController">
+        <div class="bg-faded p-4 my-4">
+            <h5 class="row card-header mb-0">
+                <input ng-model="searchText" class="inp col-10 offset-1 form-control " aria-describedby="emailHelp"
+                    placeholder="Поиск">
+            </h5>
+
+            <div id="collapseOne" >
+                <div class="card-body">
+                    <form>
+                        <div class="form-group"  >
+                            <input type="text" id = "id_" class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="ID - Обязательно заполнять при редактировании" ng-model="id" ng-click="redirect(obj.id)"
+                                required pattern="^[0-9]+$" ></input>
+                            <input type="text" id = "time_" class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="Время" ng-model="time"
+                                required></input>
+                            <input type="text" id = "fiopacienta_"  class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="ФИО пациента" ng-model="fiopacienta"
+                                required></input>
+                            <input type="text"  id = "fiovracha_" class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="ФИО врача" ng-model="fiovracha"
+                                required ></input>
+                            <input type="text"  id = "speciality_"  class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="Специальность" ng-model="speciality"
+                                required ></input>
+                            <input type="text"  id = "cabinet_" class="col-10 offset-1 form-control" aria-describedby="emailHelp"
+                                placeholder="Кабинет" ng-model="cabinet"
+                                required></input>
+
+                        </div>
+                        <div>
+                            <button class="col-10 offset-1 form-control" type="submit" class="btn btn-primary" ng-click="addTiket()"
+                                ng-hide="addHide" type="submit">
+                                Добавить
+                            </button>
+                            <button class="col-10 offset-1 form-control" type="submit" class="btn btn-primary" ng-click="updateTiket()"
+                                ng-hide="updateHide" type="submit">
+                                Обновить
+                            </button>
+                            <div id="validator_filled" style="color: red; margin-top: 10px; margin-left: 84px;">
+                                Заполните все поля</div>
+                            <div id="validator_correct" style="color: red; margin-top: 10px; margin-left: 84px;">
+                                Заполните все поля корректно</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-lg-12 table">
+                    <table class="table-hover" width="100%">
+                        <thead>
+                            <tr class="row">
+                                <td width="5%" align="center" style="font-family: MyWebFont3">ID</td>
+                                <td width="10%" align="center" style="font-family: MyWebFont3">Время</td>
+                                <td width="15%" align="center" style="font-family: MyWebFont3">ФИО пациента</td>
+                                <td width="15%" align="center" style="font-family: MyWebFont3">ФИО врача</td>
+                                <td width="15%" align="center" style="font-family: MyWebFont3">Специальность</td>
+                                <td width="10%" align="center" style="font-family: MyWebFont3">Кабинет</td>
+                                <td width="20%" align="center" role="tab">
+                                    <button id="addButton" 
+                                            ng-click="hideButton(1)" >Добавить</button>
+
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="obj in health | filter:searchText" class="row">
+                                <td width="5%" align="center" ng-click="redirect(obj.id)">{{obj.id}}</td>
+                                <td width="10%" align="center" ng-click="redirect(obj.id)">{{obj.time}}</td>
+                                <td width="15%" align="center" ng-click="redirect(obj.id)">{{obj.fiopacienta}}</td>
+                                <td width="15%" align="center" ng-click="redirect(obj.id)">{{obj.fiovracha}}</td>
+                                <td width="15%" align="center" ng-click="redirect(obj.id)">{{obj.speciality}}</td>
+                                <td width="10%" align="center" ng-click="redirect(obj.id)">{{obj.cabinet}}</td>
+                                <td width="10%" align="center" style="padding-left: 17px;">
+                                    <button ng-click="deleteTiket(obj.id)">Удалить</button>
+                                </td>
+                                <td width="10%" align="center" style="padding-left: 17px;">
+                                    <button id="updateButton"
+                                            ng-click="reWriteUpd(obj.id,obj.time,obj.fiopacienta,obj.fiovracha,obj.speciality,obj.cabinet)">Обновить</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <!-- Footer -->
+            <footer class="container-fluid bg-4 text-center">
+                <p>Сайт для электронного заказа талонов в поликлинику. <a href="https://www.bsuir.by/">БГУИР</a></p>
+                <p>@ Health.ru 2017-2020 Все права защищены.</p>
+            </footer>
+        </div>
+    </div>
+    <script src="health.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
